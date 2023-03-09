@@ -1,13 +1,15 @@
 import { Controller, Post, Body, Get, Param, Put, Patch, Delete} from "@nestjs/common/decorators";
+import { CreateUserDTO } from "./dto/create-user.dto";
+import { UpdatePutUserDTO } from "./dto/update-put-user.dto";
 
 @Controller('users')
 export class UserController {
 
     @Post()
-    async create(@Body() body) {
-        return {body};
-    }
-
+    async create(@Body() {name, email, password}: CreateUserDTO) {
+        return {name, email, password}
+    };
+    
     @Get()
     async list(){
         return {users:[]}
@@ -19,10 +21,10 @@ export class UserController {
     }
 
     @Put(':id')
-    async update(@Body() body, @Param() params){
+    async update(@Body() {name, email, password}: UpdatePutUserDTO, @Param() params){
         return {
             method: 'put',
-            body,
+            name, email, password,
             params
         }
     }
